@@ -94,10 +94,11 @@ export default function App() {
   }, [])
   async function recognize() {
     const image = tf.browser.fromPixels(canvasRef.current.canvasContainer.children[1])
-    const img = tf.image.resizeBilinear(image, [28, 28])
+    const img = tf.image.resizeNearestNeighbor(image, [28, 28])
       .toFloat()
       .mean(2)
       .divNoNan(255)
+      .step(0)
       .reshape([1, 28, 28, 1])
     await tf.browser.toPixels(img.reshape([28, 28]), document.getElementById('qwq'))
     const res = model.predict(img)
