@@ -1,3 +1,7 @@
+# Hand Written Digit Recognition
+
+![](https://i.loli.net/2020/06/12/19zuGpDiY5bKfay.png)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
