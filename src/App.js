@@ -122,14 +122,14 @@ export default function App() {
       <CssBaseline />
       <Snackbar open={open} autoHideDuration={3000} onClose={() => { setOpen(false) }}>
         <Alert severity="success" elevation={6} variant="filled">
-          模型加载成功
+          Successfully Load Tensorflow Model
         </Alert>
       </Snackbar>
       {!model && <LinearProgress style={{ zIndex: 2000 }} />}
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            在线识别手写数字
+            Handwritten digit recognition
           </Typography>
         </Toolbar>
       </AppBar>
@@ -155,13 +155,13 @@ export default function App() {
                   () => {
                     canvasRef.current.undo()
                   }
-                }>撤销</Button>
+                }>Undo</Button>
                 <Button onClick={
                   () => {
                     canvasRef.current.clear()
                   }
-                }>重画</Button>
-                <Button onClick={recognize}> 识别</Button>
+                }>Clear</Button>
+                <Button onClick={recognize}>Recognize</Button>
               </ButtonGroup>
               {
                 <Grid container spacing={2}>
