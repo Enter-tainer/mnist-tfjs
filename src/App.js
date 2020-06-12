@@ -32,17 +32,6 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 'auto',
     },
   },
-  stepper: {
-    padding: theme.spacing(3, 0, 5),
-  },
-  buttons: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  button: {
-    marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1),
-  },
   paper: {
     marginTop: theme.spacing(3),
     padding: theme.spacing(2),
