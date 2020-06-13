@@ -84,22 +84,15 @@ export default function App() {
   const [model, setModel] = useState(null)
   const [open, setOpen] = useState(false)
   const [predRes, setPredRes] = useState([])
-  useEffect(() => {
-    async function loadModel() {
-      setModel(await tf.loadLayersModel('/model.json'))
-      setOpen(true)
-    }
-    loadModel()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-  async function recognize() {
+  async function recognize(model) {
     const image = tf.browser.fromPixels(canvasRef.current.canvasContainer.children[1])
-    const img = tf.image.resizeNearestNeighbor(image, [28, 28])
+    const img = tf.image.resizeBilinear(image, [28, 28])
       .toFloat()
       .mean(2)
       .divNoNan(255)
       .step(0)
       .reshape([1, 28, 28, 1])
+      // .conv2d(tf.tensor4d([0, 0.2, 0, 0.2, 0, 0.2, 0, 0.2, 0], [3, 3, 1, 1]), 1, 'same')
     await tf.browser.toPixels(img.reshape([28, 28]), document.getElementById('qwq'))
     const res = model.predict(img)
     setPredRes((await res.array())[0])
@@ -107,6 +100,17 @@ export default function App() {
     img.dispose()
     res.dispose()
   }
+  useEffect(() => {
+    async function loadModel() {
+      const model = await tf.loadLayersModel('/model.json')
+      setModel(model)
+      setOpen(true)
+      await recognize(model)
+    }
+    loadModel()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <>
       <CssBaseline />
@@ -133,7 +137,7 @@ export default function App() {
                 canvasHeight={canvansSize}
                 canvasWidth={canvansSize}
                 brushColor="#aaa"
-                onChange={recognize}
+                onChange={() => { recognize(model) }}
               />
               <canvas id="qwq" width={28} height={28} />
             </Paper>
@@ -151,7 +155,7 @@ export default function App() {
                     canvasRef.current.clear()
                   }
                 }>Clear</Button>
-                <Button onClick={recognize}>Recognize</Button>
+                <Button onClick={() => { recognize(model) }}>Recognize</Button>
               </ButtonGroup>
               {
                 <Grid container spacing={2}>
