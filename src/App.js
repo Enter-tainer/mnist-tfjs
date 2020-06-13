@@ -86,13 +86,15 @@ export default function App() {
   const [predRes, setPredRes] = useState([])
   async function recognize(model) {
     const image = tf.browser.fromPixels(canvasRef.current.canvasContainer.children[1])
-    const img = tf.image.resizeBilinear(image, [28, 28])
+    const img = image
       .toFloat()
       .mean(2)
       .divNoNan(255)
       .step(0)
+      .reshape([canvansSize, canvansSize, 1])
+      .conv2d(tf.tensor4d([0.094, 0.118, 0.094, 0.118, 0.148, 0.118, 0.094, 0.118, 0.094], [3, 3, 1, 1]), 1, 'same')
+      .resizeBilinear([28, 28])
       .reshape([1, 28, 28, 1])
-      // .conv2d(tf.tensor4d([0, 0.2, 0, 0.2, 0, 0.2, 0, 0.2, 0], [3, 3, 1, 1]), 1, 'same')
     await tf.browser.toPixels(img.reshape([28, 28]), document.getElementById('qwq'))
     const res = model.predict(img)
     setPredRes((await res.array())[0])
