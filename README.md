@@ -2,6 +2,8 @@
 
 ![](https://i.loli.net/2020/06/12/19zuGpDiY5bKfay.png)
 
+Notebook: https://colab.research.google.com/drive/1vxK-hOLdnNWIn25rbljTnHeNMJC4wuZV#scrollTo=RGCEU5LSjg-s
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
